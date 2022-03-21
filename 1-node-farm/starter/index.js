@@ -2,12 +2,72 @@ const fs = require("fs");
 const http = require("http");
 const url = require("url");
 
+/**
+ * @ 3.3 async reduce
+ */
+// const list = [1, 2, 3];
+// const square = (num) => {
+//   return new Promise((res) => {
+//     // setTimeout(() => res(num * num), 1000);
+//   });
+// };
+// Promise handler go into microTask queue.
+// 每次返回 Promise. pending. 但是
+// acc 先是默认的pending. 但是没有resolve. 直到每次循环才会返回Promise.resolve(undefine)
+// 如果不await acc . 那就不会等循环返回的undefine.
+// const output = (arr) => {
+//   arr.reduce(async (acc, cur, index) => {
+//     console.log("before await acc", acc, cur, Date.now());
+//     await acc; // Promise. pending. 之后resolve了 后边才会执行。 而acc只有上次square结束， 才会resolve成undefine.   // undefine 意味着 上次square跑完。
+//     console.log("before await square", acc, cur, Date.now());
+//     const a = await square(cur);
+//     console.log("after await square", acc, cur, Date.now());
+//     console.log(a);
+//     return undefined;
+//   }, Promise.resolve("foo"));
+// };
+// output(list);
+
+// const whatever = new Promise((res) => res("Ukraine"));
+// whatever
+//   .then(() => {
+//     setTimeout(() => console.log("1"), 1000);
+//   })
+//   .then(() => {
+//     setTimeout(() => console.log("4"), 1000);
+//   })
+//   .then(() => {
+//     setTimeout(() => console.log("9"), 1000);
+//   });
+// const output = async (arr) => {
+//   arr.reduce(async (acc, cur, index) => {
+//     console.log(`current reduce index is ${index}`);
+//     await acc;
+//     const a = await square(cur);
+//     console.log(a);
+//   }, "foo");
+// };
+// console.log(output(list));
+
+/**
+ * @ 3.1  Promise
+ */
+// const getAllUserEmails = async () => {
+//   const response = await fetch("https://jsonplaceholder.typicode.com/users");
+//   const jsonUserData = await response.json();
+
+//   const userEmailArray = jsonUserData.map((user) => {
+//     return user.email;
+//   });
+//   console.log(userEmailArray);
+// };
+// getAllUserEmails();
 ///////////////////////////////////////////////////////////////////////////////
 // Sever
 /**
  * @TorinZhou
  * @date: 2022.2.23
- * @Lecture: 11, 12
+ * @Lecture: 11, 12, 13
  * @http.createServer([options][, requestListener])
  */
 
@@ -36,6 +96,8 @@ const server = http.createServer((req, res) => {
 server.listen(8000, "127.0.0.1", () => {
   console.log("Listening to requests on port 8000");
 });
+
+console.log(Number.parseInt("111px", 2));
 
 ////////////////////////////////////////////////////////////////////////////
 /**
